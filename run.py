@@ -13,7 +13,7 @@ if __name__ == '__main__':
     tl = Timeloop()
 
     log = logging.getLogger()
-    log.setLevel(level='DEBUG')
+    log.setLevel(level=conf.LOG_LEVEL)
     handler = logging.StreamHandler(sys.stdout)
     handler.setLevel(logging.DEBUG)
     formatter = logging.Formatter(
