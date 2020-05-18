@@ -1,6 +1,7 @@
 general:
   period: 5 #scrape interval
   host: ya.ru #target host to tracert
+  log_level: debug 
 
 fluent: #fluentd settings
   host: localhost 

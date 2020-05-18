@@ -3,9 +3,20 @@ import re
 import config as conf
 from timeloop import Timeloop
 from fluent import event, sender
+import logging
+import sys
 
 
 tl = Timeloop()
+
+log = logging.getLogger()
+log.setLevel(level='DEBUG')
+handler = logging.StreamHandler(sys.stdout)
+handler.setLevel(logging.DEBUG)
+formatter = logging.Formatter(
+    '%(asctime)s - %(levelname)s - %(message)s')
+handler.setFormatter(formatter)
+log.addHandler(handler)
 
 
 def transform_to_dict(line) -> dict:
@@ -15,7 +26,9 @@ def transform_to_dict(line) -> dict:
     line_trasformed = list(filter(None, line_trasformed))
     matchObj = re.match(r"^[-+]?[0-9]+$", line_trasformed[0])
     tracert = {}
+    log.debug(line_trasformed)
     if not matchObj:
+        log.debug('String %s doesnt match with pattern and replaced with empty data' % line_trasformed)
         pass
     else:
         tracert['hostname'] = line_trasformed[1]
@@ -55,5 +68,7 @@ def trace_to_log():
 
     sender.setup(conf.FLUENT_TAG, host=conf.FLUENT_HOST, port=conf.FLUENT_PORT)
     event.Event('follow', output)
+    log.info("Message %s was sent!" % output)
+
 
 tl.start(block=True)
