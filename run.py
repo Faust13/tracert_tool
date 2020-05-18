@@ -64,6 +64,12 @@ if __name__ == '__main__':
         for line in iter(result):
             if ("traceroute" or "Warning") in line:
                 pass
+            elif conf.FILTER != '':
+                if conf.FILTER in line:
+                    output['hop_'+str(n)] = transform_to_dict(line)
+                    n += 1
+                else:
+                    pass
             else:
                 output['hop_'+str(n)] = transform_to_dict(line)
                 n += 1
