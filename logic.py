@@ -1,6 +1,12 @@
 import os
 import re
 import json
+import config as conf
+from timeloop import Timeloop
+
+
+tl = Timeloop()
+
 
 def transform_to_dict(line) -> dict:
     regex = re.compile(r'\s+')
@@ -32,13 +38,13 @@ def transform_to_dict(line) -> dict:
                 tracert['3nd packet']=100
         except IndexError:
             tracert['3rd packet']=100
-
     return tracert
 
-def trace_to_log(host):
+@tl.job(conf.SCRAPE_INTERVAL)
+def trace_to_log():
     output={}
     n=1
-    result = os.popen('traceroute '+host)
+    result = os.popen('traceroute '+conf.TARGET_HOST)
     for line in iter(result):
         if ("traceroute" or "Warning") in line:
             pass
@@ -47,4 +53,6 @@ def trace_to_log(host):
                 n=n+1
 
     json_log=json.dumps(output)
-    return(json_log)
+    print(json_log)
+
+tl.start(block=True)
