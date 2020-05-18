@@ -1,0 +1,8 @@
+general:
+  period: 5
+  host: ya.ru
+
+fluent:
+  host: localhost
+  port: 24224
+  tag: tracert
