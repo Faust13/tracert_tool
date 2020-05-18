@@ -1,3 +1,3 @@
-timeloop
-PyYAML
-fluent-logger
+timeloop==1.0.2
+PyYAML==3.12
+fluent-logger==0.9.6
