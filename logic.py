@@ -1,8 +1,8 @@
 import os
 import re
-import json
 import config as conf
 from timeloop import Timeloop
+from fluent import event, sender
 
 
 tl = Timeloop()
@@ -53,8 +53,7 @@ def trace_to_log():
             output['hop_'+str(n)] = transform_to_dict(line)
             n += 1
 
-    json_log = json.dumps(output)
-    print(json_log)
-
+    sender.setup(conf.FLUENT_TAG, host=conf.FLUENT_HOST, port=conf.FLUENT_PORT)
+    event.Event('follow', output)
 
 tl.start(block=True)
