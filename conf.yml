@@ -1,8 +1,8 @@
 general:
-  period: 5
-  host: ya.ru
+  period: 5 #scrape interval
+  host: ya.ru #target host to tracert
 
-fluent:
-  host: localhost
+fluent: #fluentd settings
+  host: localhost 
   port: 24224
   tag: tracert
