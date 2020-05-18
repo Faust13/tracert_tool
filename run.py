@@ -70,7 +70,8 @@ if __name__ == '__main__':
 
         sender.setup(conf.FLUENT_TAG, host=conf.FLUENT_HOST,
                      port=conf.FLUENT_PORT)
-        event.Event('follow', output)
+        subtag = conf.TARGET_HOST.replace(".", "")
+        event.Event(subtag, output)
         log.info("Message %s was sent!" % output)
 
     tl.start(block=True)
