@@ -39,21 +39,21 @@ if __name__ == '__main__':
             if line_trasformed[3] != "*":
                 tracert['1st packet'] = line_trasformed[3]
             else:
-                tracert['1st packet'] = 100
+                tracert['1st packet'] = '999'
             try:
                 if line_trasformed[5] != "*":
                     tracert['2nd packet'] = line_trasformed[5]
                 else:
-                    tracert['2nd packet'] = 100
+                    tracert['2nd packet'] = '999'
             except IndexError:
-                tracert['2nd packet'] = 100
+                tracert['2nd packet'] = '999'
             try:
                 if line_trasformed[7] != "*":
                     tracert['3rd packet'] = line_trasformed[7]
                 else:
-                    tracert['3nd packet'] = 100
+                    tracert['3nd packet'] = '999'
             except IndexError:
-                tracert['3rd packet'] = 100
+                tracert['3rd packet'] = '999'
         return tracert
 
     @tl.job(conf.SCRAPE_INTERVAL)
